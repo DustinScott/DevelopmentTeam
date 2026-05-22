@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PayComp — Product &amp; Engineering Team</title>
+  <style>
+    :root {
+      --navy: #1C3557;
+      --navy-light: #2a4a72;
+      --orange: #F47920;
+      --orange-light: #fdf0e6;
+      --bg: #f5f7fa;
+      --card-bg: #ffffff;
+      --text: #1a1a2e;
+      --text-muted: #6b7280;
+      --border: #e2e8f0;
+      --accent-blue: #dbeafe;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--navy);
+      color: white;
+      padding: 0;
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 32px 40px;
+      display: flex;
+      align-items: flex-start;
+      gap: 48px;
+    }
+    .header-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 12px;
+    }
+    .header-title {
+      font-size: 38px;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 0;
+      flex: 0 0 auto;
+    }
+    .header-desc {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #b0bec5;
+      max-width: 420px;
+      padding-top: 6px;
+    }
+    .header-date {
+      margin-top: 16px;
+      font-size: 12px;
+      color: #78909c;
+      letter-spacing: 0.5px;
+    }
+    .orange-bar {
+      height: 4px;
+      background: linear-gradient(90deg, var(--orange), #f9a052);
+    }
+
+    /* ── CTO FEATURE ── */
+    .cto-section {
+      max-width: 1200px;
+      margin: 40px auto 0;
+      padding: 0 32px;
+    }
+    .cto-card {
+      background: var(--navy);
+      border-radius: 16px;
+      padding: 36px 48px;
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .cto-card::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(244,121,32,0.12);
+    }
+    .cto-card::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; right: 80px;
+      width: 150px; height: 150px;
+      border-radius: 50%;
+      background: rgba(244,121,32,0.07);
+    }
+    .cto-avatar {
+      width: 96px; height: 96px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--orange), #f9a052);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px; font-weight: 800; color: white;
+      flex-shrink: 0;
+      border: 3px solid rgba(255,255,255,0.2);
+      /* Replace with: background: url('dustin.jpg') center/cover; */
+    }
+    .cto-info { flex: 1; }
+    .cto-badge {
+      display: inline-block;
+      background: var(--orange);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    .cto-name { font-size: 26px; font-weight: 800; margin-bottom: 4px; }
+    .cto-title { font-size: 15px; color: #90a4ae; margin-bottom: 16px; }
+    .cto-pillars { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .cto-pillar {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+    }
+    .cto-pillar-icon { font-size: 14px; }
+
+    /* ── HOW WE BUILD pipeline ── */
+    .pipeline-section {
+      max-width: 1200px;
+      margin: 32px auto 0;
+      padding: 0 32px;
+    }
+    .pipeline-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 40px;
+    }
+    .pipeline-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 6px;
+    }
+    .pipeline-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 28px;
+    }
+    .pipeline-steps {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+    .pipeline-step {
+      flex: 1;
+      min-width: 180px;
+      background: var(--bg);
+      border-radius: 12px;
+      padding: 20px 18px;
+      position: relative;
+      text-align: center;
+    }
+    .pipeline-step-icon {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      margin: 0 auto 12px;
+    }
+    .step-1 .pipeline-step-icon { background: var(--orange-light); }
+    .step-2 .pipeline-step-icon { background: #dbeafe; }
+    .step-3 .pipeline-step-icon { background: #dcfce7; }
+    .step-4 .pipeline-step-icon { background: #f3e8ff; }
+    .pipeline-step-num {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .pipeline-step-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+    .pipeline-step-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+    .pipeline-arrow {
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 8px;
+      color: var(--orange);
+      font-size: 20px;
+      font-weight: 700;
+      flex-shrink: 0;
+      align-self: center;
+    }
+    @media (max-width: 700px) {
+      .pipeline-arrow { transform: rotate(90deg); width: 100%; padding: 4px 0; }
+      .pipeline-steps { flex-direction: column; }
+    }
+
+    /* ── SECTION HEADINGS ── */
+    .section-wrap {
+      max-width: 1200px;
+      margin: 48px auto 0;
+      padding: 0 32px;
+    }
+    .section-heading {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    /* ── TEAM GRID ── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 20px;
+    }
+
+    .member-card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .member-card:hover {
+      box-shadow: 0 8px 32px rgba(28,53,87,0.12);
+      transform: translateY(-2px);
+    }
+
+    .member-header {
+      padding: 24px 24px 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .member-avatar {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; font-weight: 800; color: white;
+      flex-shrink: 0;
+      /* Replace with: background: url('name.jpg') center/cover; */
+    }
+    .member-info { flex: 1; min-width: 0; }
+    .member-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 3px;
+      line-height: 1.3;
+    }
+    .member-role {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    .member-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin-top: 5px;
+    }
+    .tag-front { background: #dbeafe; color: #1e40af; }
+    .tag-back  { background: #dcfce7; color: #166534; }
+    .tag-lead  { background: var(--orange-light); color: #c2410c; }
+    .tag-content { background: #f3e8ff; color: #6b21a8; }
+
+    /* projects table */
+    .projects-section {
+      padding: 0 16px 16px;
+    }
+    .projects-toggle {
+      width: 100%;
+      background: var(--bg);
+      border: none;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--navy);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s;
+    }
+    .projects-toggle:hover { background: #e2e8f0; }
+    .toggle-icon { font-size: 14px; transition: transform 0.2s; }
+    .projects-toggle.open .toggle-icon { transform: rotate(180deg); }
+
+    .projects-table {
+      display: none;
+      margin-top: 10px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .projects-table.visible { display: block; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    thead tr { background: var(--navy); color: white; }
+    thead th {
+      padding: 8px 12px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+    tbody tr { border-bottom: 1px solid var(--border); }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:nth-child(even) { background: #f8fafc; }
+    tbody td { padding: 7px 12px; color: var(--text); }
+    .resp-lead {
+      display: inline-block;
+      padding: 1px 7px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .resp-lead-dev { background: #fef9c3; color: #854d0e; }
+    .resp-arch { background: #dbeafe; color: #1e3a8a; }
+    .resp-pm { background: #f3e8ff; color: #581c87; }
+    .resp-assoc { background: #f1f5f9; color: #475569; }
+    .resp-devops { background: #dcfce7; color: #14532d; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 40px 32px;
+      margin-top: 60px;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+    }
+    .footer-logo {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+    .footer-logo span { color: var(--orange); }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div>
+      <div class="header-label">Product &amp; Engineering</div>
+      <div class="header-title">Meet the PayComp<br>Development Team</div>
+      <div class="header-date">As of May 2026</div>
+    </div>
+    <div class="header-desc">
+      The product and engineering team builds the platform, APIs, integrations,
+      and front-end experiences that power PayComp's agency, carrier, and payroll workflows.
+    </div>
+  </div>
+</header>
+<div class="orange-bar"></div>
+
+<!-- CTO -->
+<div class="cto-section">
+  <div class="cto-card">
+    <div class="cto-avatar">DSG
+      <!-- To use a photo: replace background gradient above with background: url('dustin.jpg') center/cover; -->
+    </div>
+    <div class="cto-info">
+      <div class="cto-badge">Leadership</div>
+      <div class="cto-name">Dustin Scott Garza</div>
+      <div class="cto-title">Chief Technology Officer</div>
+      <div class="cto-pillars">
+        <span class="cto-pillar"><span class="cto-pillar-icon">🎯</span> Product Strategist</span>
+        <span class="cto-pillar"><span class="cto-pillar-icon">🧩</span> Information Architect</span>
+        <span class="cto-pillar"><span class="cto-pillar-icon">⚡</span> Prototype Lead</span>
+        <span class="cto-pillar"><span class="cto-pillar-icon">🤝</span> Developer Coach</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW WE BUILD -->
+<div class="pipeline-section">
+  <div class="pipeline-card">
+    <div class="pipeline-label">How We Build</div>
+    <div class="pipeline-title">From Vision to Delivery — Our Development Process</div>
+    <div class="pipeline-steps">
+
+      <div class="pipeline-step step-1">
+        <div class="pipeline-step-icon">🎯</div>
+        <div class="pipeline-step-num">Step 1</div>
+        <div class="pipeline-step-title">Strategy &amp; Vision</div>
+        <div class="pipeline-step-desc">Dustin defines the product concept, identifying business needs, user flows, and the strategic direction each initiative will take.</div>
+      </div>
+
+      <div class="pipeline-arrow">›</div>
+
+      <div class="pipeline-step step-2">
+        <div class="pipeline-step-icon">⚡</div>
+        <div class="pipeline-step-num">Step 2</div>
+        <div class="pipeline-step-title">Prototype &amp; Architecture</div>
+        <div class="pipeline-step-desc">Dustin builds working prototypes and maps the information architecture — turning concepts into tangible, testable structures before a single line of production code is written.</div>
+      </div>
+
+      <div class="pipeline-arrow">›</div>
+
+      <div class="pipeline-step step-3">
+        <div class="pipeline-step-icon">🤝</div>
+        <div class="pipeline-step-num">Step 3</div>
+        <div class="pipeline-step-title">Developer Alignment</div>
+        <div class="pipeline-step-desc">Dustin works directly with the engineering team to transmit the vision, answer questions, and refine the approach — ensuring the build matches the intent precisely.</div>
+      </div>
+
+      <div class="pipeline-arrow">›</div>
+
+      <div class="pipeline-step step-4">
+        <div class="pipeline-step-icon">✅</div>
+        <div class="pipeline-step-num">Step 4</div>
+        <div class="pipeline-step-title">Polished Delivery</div>
+        <div class="pipeline-step-desc">Only after thorough internal refinement is a product shared with C-Suite, Operations, Sales, or Marketing — ensuring every stakeholder sees work that is complete and well-considered.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ENGINEERING TEAM -->
+<div class="section-wrap">
+  <div class="section-heading">Engineering</div>
+  <div class="section-title">Core Development Team</div>
+
+  <div class="team-grid">
+
+    <!-- Francisco Meneses -->
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-avatar" style="background: linear-gradient(135deg,#1C3557,#2a5f9a);">FM</div>
+        <div class="member-info">
+          <div class="member-name">Francisco David Meneses</div>
+          <div class="member-role">Lead Engineer</div>
+          <span class="member-tag tag-lead">Engineering Lead</span>
+        </div>
+      </div>
+      <div class="projects-section">
+        <button class="projects-toggle" onclick="toggleProjects(this)">
+          View Projects (16) <span class="toggle-icon">▾</span>
+        </button>
+        <div class="projects-table">
+          <table>
+            <thead><tr><th>Project</th><th>Responsibility</th></tr></thead>
+            <tbody>
+              <tr><td>WOPR Prototyping</td><td><span class="resp-lead resp-lead-dev">Lead Developer</span></td></tr>
+              <tr><td>WOPR API</td><td><span class="resp-lead resp-arch">Architect / PM</span></td></tr>
+              <tr><td>WOPR Frontend</td><td><span class="resp-lead resp-pm">Project Manager</span></td></tr>
+              <tr><td>WOPR Mobile/Desktop</td><td><span class="resp-lead resp-pm">Project Manager</span></td></tr>
+              <tr><td>PayComp API</td><td><span class="resp-lead resp-arch">Architect / PM</span></td></tr>
+              <tr><td>ATLAS Prototyping</td><td><span class="resp-lead resp-arch">Architect / PM</span></td></tr>
+              <tr><td>ATLAS CRM</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+              <tr><td>ATLAS Agency App</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+              <tr><td>ATLAS Standardization</td><td><span class="resp-lead resp-pm">Project Manager</span></td></tr>
+              <tr><td>Signup App QR</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+              <tr><td>Executive Hub</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+              <tr><td>WordPress Website</td><td><span class="resp-lead resp-pm">Project Manager</span></td></tr>
+              <tr><td>CompConnect</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+              <tr><td>PayComp Events</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+              <tr><td>Fireflies-Clickup Automations</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+              <tr><td>DevOps</td><td><span class="resp-lead resp-devops">Lead Engineer</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Luis Mendoza -->
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-avatar" style="background: linear-gradient(135deg,#166534,#16a34a);">LM</div>
+        <div class="member-info">
+          <div class="member-name">Luis Mendoza</div>
+          <div class="member-role">Full Stack Developer</div>
+          <span class="member-tag tag-back">Back End Team</span>
+        </div>
+      </div>
+      <div class="projects-section">
+        <button class="projects-toggle" onclick="toggleProjects(this)">
+          View Projects (10) <span class="toggle-icon">▾</span>
+        </button>
+        <div class="projects-table">
+          <table>
+            <thead><tr><th>Project</th><th>Responsibility</th></tr></thead>
+            <tbody>
+              <tr><td>PayComp API</td><td><span class="resp-lead resp-arch">Associate Architect</span></td></tr>
+              <tr><td>ATLAS Prototyping</td><td><span class="resp-lead resp-lead-dev">Lead Developer</span></td></tr>
+              <tr><td>ATLAS CRM</td><td><span class="resp-lead resp-lead-dev">Lead Developer</span></td></tr>
+              <tr><td>ATLAS Agency App</td><td><span class="resp-lead resp-lead-dev">Lead Developer</span></td></tr>
+              <tr><td>ATLAS Standardization</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+              <tr><td>Signup App QR</td><td><span class="resp-lead resp-lead-dev">Lead Developer</span></td></tr>
+              <tr><td>Executive Hub</td><td><span class="resp-lead resp-lead-dev">Lead Developer</span></td></tr>
+              <tr><td>CompConnect</td><td><span class="resp-lead resp-lead-dev">Lead Developer</span></td></tr>
+              <tr><td>PayComp Events</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+              <tr><td>Fireflies-Clickup Automations</td><td><span class="resp-lead resp-lead-dev">Lead Developer</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Jonathan Kim -->
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-avatar" style="background: linear-gradient(135deg,#7c3aed,#a855f7);">JK</div>
+        <div class="member-info">
+          <div class="member-name">Jonathan Kim</div>
+          <div class="member-role">Full Stack Developer</div>
+          <span class="member-tag tag-back">Back End Team</span>
+        </div>
+      </div>
+      <div class="projects-section">
+        <button class="projects-toggle" onclick="toggleProjects(this)">
+          View Projects (3) <span class="toggle-icon">▾</span>
+        </button>
+        <div class="projects-table">
+          <table>
+            <thead><tr><th>Project</th><th>Responsibility</th></tr></thead>
+            <tbody>
+              <tr><td>WOPR Prototyping</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+              <tr><td>WOPR API</td><td><span class="resp-lead resp-lead-dev">Lead Developer</span></td></tr>
+              <tr><td>PayComp API</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dario Olivares -->
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-avatar" style="background: linear-gradient(135deg,#0369a1,#0ea5e9);">DO</div>
+        <div class="member-info">
+          <div class="member-name">Dario Olivares</div>
+          <div class="member-role">Engineer</div>
+          <span class="member-tag tag-back">Back End Team</span>
+        </div>
+      </div>
+      <div class="projects-section">
+        <button class="projects-toggle" onclick="toggleProjects(this)">
+          View Projects (5) <span class="toggle-icon">▾</span>
+        </button>
+        <div class="projects-table">
+          <table>
+            <thead><tr><th>Project</th><th>Responsibility</th></tr></thead>
+            <tbody>
+              <tr><td>WOPR Prototyping</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+              <tr><td>WOPR API</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+              <tr><td>WOPR Frontend</td><td><span class="resp-lead resp-lead-dev">Lead Developer</span></td></tr>
+              <tr><td>PayComp API</td><td><span class="resp-lead resp-arch">Assoc. Architect / Developer</span></td></tr>
+              <tr><td>ATLAS Standardization</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+              <tr><td>DevOps</td><td><span class="resp-lead resp-devops">Associate Engineer</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Jose Mena -->
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-avatar" style="background: linear-gradient(135deg,#be123c,#f43f5e);">JM</div>
+        <div class="member-info">
+          <div class="member-name">José Daniel Mena Silva</div>
+          <div class="member-role">Full Stack Developer</div>
+          <span class="member-tag tag-back">Back End Team</span>
+        </div>
+      </div>
+      <div class="projects-section">
+        <button class="projects-toggle" onclick="toggleProjects(this)">
+          View Projects (4) <span class="toggle-icon">▾</span>
+        </button>
+        <div class="projects-table">
+          <table>
+            <thead><tr><th>Project</th><th>Responsibility</th></tr></thead>
+            <tbody>
+              <tr><td>WOPR Prototyping</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+              <tr><td>WOPR API</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+              <tr><td>WOPR Frontend</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+              <tr><td>PayComp API</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Jeico Corrales -->
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-avatar" style="background: linear-gradient(135deg,#b45309,#d97706);">JC</div>
+        <div class="member-info">
+          <div class="member-name">Jeico Corrales Madriz</div>
+          <div class="member-role">Full Stack Developer</div>
+          <span class="member-tag tag-front">Front End Team</span>
+        </div>
+      </div>
+      <div class="projects-section">
+        <button class="projects-toggle" onclick="toggleProjects(this)">
+          View Projects (5) <span class="toggle-icon">▾</span>
+        </button>
+        <div class="projects-table">
+          <table>
+            <thead><tr><th>Project</th><th>Responsibility</th></tr></thead>
+            <tbody>
+              <tr><td>WOPR Prototyping</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+              <tr><td>WOPR API</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+              <tr><td>WOPR Frontend</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+              <tr><td>WOPR Mobile/Desktop</td><td><span class="resp-lead resp-lead-dev">Lead Developer</span></td></tr>
+              <tr><td>PayComp API</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Denilson Arguello -->
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-avatar" style="background: linear-gradient(135deg,#0f766e,#14b8a6);">DA</div>
+        <div class="member-info">
+          <div class="member-name">Denilson Arguello</div>
+          <div class="member-role">Full Stack Developer</div>
+          <span class="member-tag tag-front">Front End Team</span>
+        </div>
+      </div>
+      <div class="projects-section">
+        <button class="projects-toggle" onclick="toggleProjects(this)">
+          View Projects (2) <span class="toggle-icon">▾</span>
+        </button>
+        <div class="projects-table">
+          <table>
+            <thead><tr><th>Project</th><th>Responsibility</th></tr></thead>
+            <tbody>
+              <tr><td>WordPress Website</td><td><span class="resp-lead resp-lead-dev">Lead Developer</span></td></tr>
+              <tr><td>New Website</td><td><span class="resp-lead resp-lead-dev">Lead Developer</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Juan Grajales -->
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-avatar" style="background: linear-gradient(135deg,#1d4ed8,#3b82f6);">JG</div>
+        <div class="member-info">
+          <div class="member-name">Juan Sebastian Grajales</div>
+          <div class="member-role">Full Stack Developer</div>
+          <span class="member-tag tag-front">Front End Team</span>
+        </div>
+      </div>
+      <div class="projects-section">
+        <button class="projects-toggle" onclick="toggleProjects(this)">
+          View Projects (4) <span class="toggle-icon">▾</span>
+        </button>
+        <div class="projects-table">
+          <table>
+            <thead><tr><th>Project</th><th>Responsibility</th></tr></thead>
+            <tbody>
+              <tr><td>WordPress Website</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+              <tr><td>New Website</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+              <tr><td>PayComp API</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+              <tr><td>WOPR API</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Milagros Taboada -->
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-avatar" style="background: linear-gradient(135deg,#9d174d,#ec4899);">MT</div>
+        <div class="member-info">
+          <div class="member-name">Milagros Taboada</div>
+          <div class="member-role">Full Stack Developer</div>
+          <span class="member-tag tag-front">Front End Team</span>
+        </div>
+      </div>
+      <div class="projects-section">
+        <button class="projects-toggle" onclick="toggleProjects(this)">
+          View Projects (3) <span class="toggle-icon">▾</span>
+        </button>
+        <div class="projects-table">
+          <table>
+            <thead><tr><th>Project</th><th>Responsibility</th></tr></thead>
+            <tbody>
+              <tr><td>New Website</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+              <tr><td>PayComp Events</td><td><span class="resp-lead resp-lead-dev">Lead Developer</span></td></tr>
+              <tr><td>Fireflies-Clickup Automations</td><td><span class="resp-lead resp-assoc">Associate Developer</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /team-grid -->
+</div><!-- /section-wrap -->
+
+<!-- CONTENT & DIGITAL -->
+<div class="section-wrap" style="margin-top: 48px; padding-bottom: 8px;">
+  <div class="section-heading">Content &amp; Digital</div>
+  <div class="section-title">Creative &amp; Digital Presence</div>
+
+  <div class="team-grid" style="grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));">
+
+    <!-- Ader Reynoso -->
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-avatar" style="background: linear-gradient(135deg,#92400e,#f59e0b);">AR</div>
+        <div class="member-info">
+          <div class="member-name">Ader Reynoso</div>
+          <div class="member-role">Multimedia Content Lead</div>
+          <span class="member-tag tag-content">Content</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Miguel Flores -->
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-avatar" style="background: linear-gradient(135deg,#065f46,#34d399);">MF</div>
+        <div class="member-info">
+          <div class="member-name">José Miguel Flores</div>
+          <div class="member-role">Digital Presence Manager</div>
+          <span class="member-tag tag-content">Digital</span>
+        </div>
+      </div>
+      <div class="projects-section">
+        <button class="projects-toggle" onclick="toggleProjects(this)">
+          View Projects (1) <span class="toggle-icon">▾</span>
+        </button>
+        <div class="projects-table">
+          <table>
+            <thead><tr><th>Project</th><th>Responsibility</th></tr></thead>
+            <tbody>
+              <tr><td>PCTeam Squarespace Site</td><td><span class="resp-lead resp-lead-dev">Lead Developer</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PROJECT SUMMARY -->
+<div class="section-wrap" style="margin-top: 48px; padding-bottom: 0;">
+  <div class="section-heading">Overview</div>
+  <div class="section-title">Active Projects at a Glance</div>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-bottom: 40px;">
+    <div style="background:white;border-radius:12px;border:1px solid var(--border);padding:20px;">
+      <div style="font-size:28px;font-weight:800;color:var(--navy);">12</div>
+      <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">Active Projects</div>
+    </div>
+    <div style="background:white;border-radius:12px;border:1px solid var(--border);padding:20px;">
+      <div style="font-size:28px;font-weight:800;color:var(--orange);">11</div>
+      <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">Team Members</div>
+    </div>
+    <div style="background:white;border-radius:12px;border:1px solid var(--border);padding:20px;">
+      <div style="font-size:28px;font-weight:800;color:#166534;">7</div>
+      <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">Engineers</div>
+    </div>
+    <div style="background:white;border-radius:12px;border:1px solid var(--border);padding:20px;">
+      <div style="font-size:28px;font-weight:800;color:#7c3aed;">2</div>
+      <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">Content &amp; Digital</div>
+    </div>
+  </div>
+
+  <div style="background:white;border-radius:14px;border:1px solid var(--border);overflow:hidden;margin-bottom:48px;">
+    <table style="width:100%;">
+      <thead>
+        <tr style="background:var(--navy);color:white;">
+          <th style="padding:12px 16px;text-align:left;font-size:12px;letter-spacing:0.5px;">Project</th>
+          <th style="padding:12px 16px;text-align:left;font-size:12px;letter-spacing:0.5px;">Lead</th>
+          <th style="padding:12px 16px;text-align:left;font-size:12px;letter-spacing:0.5px;">Team Size</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 16px;font-size:13px;">WOPR Prototyping</td><td style="padding:10px 16px;font-size:13px;color:var(--navy);font-weight:600;">Francisco Meneses</td><td style="padding:10px 16px;font-size:13px;">5</td></tr>
+        <tr style="border-bottom:1px solid var(--border);background:#f8fafc;"><td style="padding:10px 16px;font-size:13px;">WOPR API</td><td style="padding:10px 16px;font-size:13px;color:var(--navy);font-weight:600;">Jonathan Kim</td><td style="padding:10px 16px;font-size:13px;">6</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 16px;font-size:13px;">WOPR Frontend</td><td style="padding:10px 16px;font-size:13px;color:var(--navy);font-weight:600;">Dario Olivares</td><td style="padding:10px 16px;font-size:13px;">4</td></tr>
+        <tr style="border-bottom:1px solid var(--border);background:#f8fafc;"><td style="padding:10px 16px;font-size:13px;">WOPR Mobile/Desktop</td><td style="padding:10px 16px;font-size:13px;color:var(--navy);font-weight:600;">Jeico Corrales</td><td style="padding:10px 16px;font-size:13px;">2</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 16px;font-size:13px;">PayComp API</td><td style="padding:10px 16px;font-size:13px;color:var(--navy);font-weight:600;">Francisco Meneses</td><td style="padding:10px 16px;font-size:13px;">6</td></tr>
+        <tr style="border-bottom:1px solid var(--border);background:#f8fafc;"><td style="padding:10px 16px;font-size:13px;">ATLAS Prototyping / CRM / Agency</td><td style="padding:10px 16px;font-size:13px;color:var(--navy);font-weight:600;">Luis Mendoza</td><td style="padding:10px 16px;font-size:13px;">3</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 16px;font-size:13px;">WordPress &amp; New Website</td><td style="padding:10px 16px;font-size:13px;color:var(--navy);font-weight:600;">Denilson Arguello</td><td style="padding:10px 16px;font-size:13px;">3</td></tr>
+        <tr style="border-bottom:1px solid var(--border);background:#f8fafc;"><td style="padding:10px 16px;font-size:13px;">Executive Hub</td><td style="padding:10px 16px;font-size:13px;color:var(--navy);font-weight:600;">Luis Mendoza</td><td style="padding:10px 16px;font-size:13px;">2</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 16px;font-size:13px;">CompConnect</td><td style="padding:10px 16px;font-size:13px;color:var(--navy);font-weight:600;">Luis Mendoza</td><td style="padding:10px 16px;font-size:13px;">2</td></tr>
+        <tr style="border-bottom:1px solid var(--border);background:#f8fafc;"><td style="padding:10px 16px;font-size:13px;">PayComp Events</td><td style="padding:10px 16px;font-size:13px;color:var(--navy);font-weight:600;">Milagros Taboada</td><td style="padding:10px 16px;font-size:13px;">3</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 16px;font-size:13px;">Fireflies-Clickup Automations</td><td style="padding:10px 16px;font-size:13px;color:var(--navy);font-weight:600;">Luis Mendoza</td><td style="padding:10px 16px;font-size:13px;">3</td></tr>
+        <tr><td style="padding:10px 16px;font-size:13px;">PCTeam Squarespace Site</td><td style="padding:10px 16px;font-size:13px;color:var(--navy);font-weight:600;">José Miguel Flores</td><td style="padding:10px 16px;font-size:13px;">1</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">Pay<span>Comp</span></div>
+  <div>Product &amp; Engineering · Confidential · May 2026</div>
+</footer>
+
+<script>
+  function toggleProjects(btn) {
+    const table = btn.nextElementSibling;
+    const isOpen = table.classList.contains('visible');
+    table.classList.toggle('visible', !isOpen);
+    btn.classList.toggle('open', !isOpen);
+  }
+</script>
+</body>
+</html>
